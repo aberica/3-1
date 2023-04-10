@@ -1,0 +1,314 @@
+#! /usr/bin/vvp
+:ivl_version "10.3 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 10;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x55f502abe0f0 .scope module, "Register_file_tb" "Register_file_tb" 2 8;
+ .timescale -9 -10;
+v0x55f502b2d690_0 .var "ADDR_A", 2 0;
+v0x55f502b2d770_0 .var "ADDR_B", 2 0;
+v0x55f502b2d810_0 .var "CLK", 0 0;
+v0x55f502b2d8b0_0 .net "DATA_A", 15 0, L_0x55f502b2e000;  1 drivers
+v0x55f502b2d980_0 .net "DATA_B", 15 0, L_0x55f502b2e370;  1 drivers
+v0x55f502b2da20_0 .var "DATA_IN", 15 0;
+v0x55f502b2daf0_0 .var "RSTn", 0 0;
+v0x55f502b2dbc0_0 .var "WR", 0 0;
+v0x55f502b2dc90_0 .var/i "i", 31 0;
+S_0x55f502abe270 .scope module, "register" "Register_file" 2 21, 3 7 0, S_0x55f502abe0f0;
+ .timescale -9 -10;
+    .port_info 0 /INPUT 1 "CLK"
+    .port_info 1 /INPUT 1 "RSTn"
+    .port_info 2 /INPUT 1 "WR"
+    .port_info 3 /INPUT 3 "ADDR_A"
+    .port_info 4 /INPUT 3 "ADDR_B"
+    .port_info 5 /INPUT 16 "DATA_IN"
+    .port_info 6 /OUTPUT 16 "DATA_A"
+    .port_info 7 /OUTPUT 16 "DATA_B"
+L_0x55f502b2e000 .functor BUFZ 16, L_0x55f502b2ddc0, C4<0000000000000000>, C4<0000000000000000>, C4<0000000000000000>;
+L_0x55f502b2e370 .functor BUFZ 16, L_0x55f502b2e110, C4<0000000000000000>, C4<0000000000000000>, C4<0000000000000000>;
+v0x55f502b03490_0 .net "ADDR_A", 2 0, v0x55f502b2d690_0;  1 drivers
+v0x55f502b2c8e0_0 .net "ADDR_B", 2 0, v0x55f502b2d770_0;  1 drivers
+v0x55f502b2c9c0_0 .net "CLK", 0 0, v0x55f502b2d810_0;  1 drivers
+v0x55f502b2ca60_0 .net "DATA_A", 15 0, L_0x55f502b2e000;  alias, 1 drivers
+v0x55f502b2cb40_0 .net "DATA_B", 15 0, L_0x55f502b2e370;  alias, 1 drivers
+v0x55f502b2cc70_0 .net "DATA_IN", 15 0, v0x55f502b2da20_0;  1 drivers
+v0x55f502b2cd50_0 .net "RSTn", 0 0, v0x55f502b2daf0_0;  1 drivers
+v0x55f502b2ce10_0 .net "WR", 0 0, v0x55f502b2dbc0_0;  1 drivers
+v0x55f502b2ced0_0 .net *"_s0", 15 0, L_0x55f502b2ddc0;  1 drivers
+v0x55f502b2cfb0_0 .net *"_s10", 4 0, L_0x55f502b2e1b0;  1 drivers
+L_0x7fb03c307060 .functor BUFT 1, C4<00>, C4<0>, C4<0>, C4<0>;
+v0x55f502b2d090_0 .net *"_s13", 1 0, L_0x7fb03c307060;  1 drivers
+v0x55f502b2d170_0 .net *"_s18", 0 0, L_0x55f502b2e480;  1 drivers
+v0x55f502b2d230_0 .net *"_s2", 4 0, L_0x55f502b2dec0;  1 drivers
+L_0x7fb03c307018 .functor BUFT 1, C4<00>, C4<0>, C4<0>, C4<0>;
+v0x55f502b2d310_0 .net *"_s5", 1 0, L_0x7fb03c307018;  1 drivers
+v0x55f502b2d3f0_0 .net *"_s8", 15 0, L_0x55f502b2e110;  1 drivers
+v0x55f502b2d4d0 .array "reg_array", 0 7, 15 0;
+E_0x55f502b050c0 .event edge, v0x55f502b2ce10_0, L_0x55f502b2e480;
+L_0x55f502b2ddc0 .array/port v0x55f502b2d4d0, L_0x55f502b2dec0;
+L_0x55f502b2dec0 .concat [ 3 2 0 0], v0x55f502b2d690_0, L_0x7fb03c307018;
+L_0x55f502b2e110 .array/port v0x55f502b2d4d0, L_0x55f502b2e1b0;
+L_0x55f502b2e1b0 .concat [ 3 2 0 0], v0x55f502b2d770_0, L_0x7fb03c307060;
+L_0x55f502b2e480 .reduce/nor v0x55f502b2daf0_0;
+    .scope S_0x55f502abe270;
+T_0 ;
+    %wait E_0x55f502b050c0;
+    %load/vec4 v0x55f502b2cd50_0;
+    %nor/r;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.0, 8;
+    %pushi/vec4 0, 0, 16;
+    %ix/load 3, 0, 0;
+    %flag_set/imm 4, 0;
+    %ix/load 4, 0, 0; Constant delay
+    %assign/vec4/a/d v0x55f502b2d4d0, 0, 4;
+    %pushi/vec4 0, 0, 16;
+    %ix/load 3, 1, 0;
+    %flag_set/imm 4, 0;
+    %ix/load 4, 0, 0; Constant delay
+    %assign/vec4/a/d v0x55f502b2d4d0, 0, 4;
+    %pushi/vec4 0, 0, 16;
+    %ix/load 3, 2, 0;
+    %flag_set/imm 4, 0;
+    %ix/load 4, 0, 0; Constant delay
+    %assign/vec4/a/d v0x55f502b2d4d0, 0, 4;
+    %pushi/vec4 0, 0, 16;
+    %ix/load 3, 3, 0;
+    %flag_set/imm 4, 0;
+    %ix/load 4, 0, 0; Constant delay
+    %assign/vec4/a/d v0x55f502b2d4d0, 0, 4;
+    %pushi/vec4 0, 0, 16;
+    %ix/load 3, 4, 0;
+    %flag_set/imm 4, 0;
+    %ix/load 4, 0, 0; Constant delay
+    %assign/vec4/a/d v0x55f502b2d4d0, 0, 4;
+    %pushi/vec4 0, 0, 16;
+    %ix/load 3, 5, 0;
+    %flag_set/imm 4, 0;
+    %ix/load 4, 0, 0; Constant delay
+    %assign/vec4/a/d v0x55f502b2d4d0, 0, 4;
+    %pushi/vec4 0, 0, 16;
+    %ix/load 3, 6, 0;
+    %flag_set/imm 4, 0;
+    %ix/load 4, 0, 0; Constant delay
+    %assign/vec4/a/d v0x55f502b2d4d0, 0, 4;
+    %pushi/vec4 0, 0, 16;
+    %ix/load 3, 7, 0;
+    %flag_set/imm 4, 0;
+    %ix/load 4, 0, 0; Constant delay
+    %assign/vec4/a/d v0x55f502b2d4d0, 0, 4;
+T_0.0 ;
+    %load/vec4 v0x55f502b2ce10_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.2, 8;
+    %load/vec4 v0x55f502b2cc70_0;
+    %load/vec4 v0x55f502b03490_0;
+    %pad/u 5;
+    %ix/vec4 3;
+    %ix/load 4, 0, 0; Constant delay
+    %assign/vec4/a/d v0x55f502b2d4d0, 0, 4;
+    %load/vec4 v0x55f502b2cc70_0;
+    %load/vec4 v0x55f502b2c8e0_0;
+    %pad/u 5;
+    %ix/vec4 3;
+    %ix/load 4, 0, 0; Constant delay
+    %assign/vec4/a/d v0x55f502b2d4d0, 0, 4;
+T_0.2 ;
+    %jmp T_0;
+    .thread T_0, $push;
+    .scope S_0x55f502abe0f0;
+T_1 ;
+T_1.0 ;
+    %delay 50, 0;
+    %load/vec4 v0x55f502b2d810_0;
+    %inv;
+    %store/vec4 v0x55f502b2d810_0, 0, 1;
+    %jmp T_1.0;
+    %end;
+    .thread T_1;
+    .scope S_0x55f502abe0f0;
+T_2 ;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x55f502b2d810_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x55f502b2daf0_0, 0, 1;
+    %delay 20, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x55f502b2daf0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x55f502b2dbc0_0, 0, 1;
+    %delay 200, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x55f502b2daf0_0, 0, 1;
+    %vpi_call 2 48 "$display", $time, " ********************** " {0 0 0};
+    %vpi_call 2 49 "$display", $time, " ** Start Simulation ** " {0 0 0};
+    %vpi_call 2 50 "$display", $time, " ********************** " {0 0 0};
+    %vpi_call 2 52 "$display", $time, " *** Register File **** " {0 0 0};
+    %vpi_call 2 53 "$display", $time, " ********************** " {0 0 0};
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x55f502b2dc90_0, 0, 32;
+T_2.0 ;
+    %load/vec4 v0x55f502b2dc90_0;
+    %cmpi/s 8, 0, 32;
+    %jmp/0xz T_2.1, 5;
+    %vpi_call 2 55 "$display", $time, " Reg[%d]: %h (%b)", v0x55f502b2dc90_0, &A<v0x55f502b2d4d0, v0x55f502b2dc90_0 >, &A<v0x55f502b2d4d0, v0x55f502b2dc90_0 > {0 0 0};
+    %load/vec4 v0x55f502b2dc90_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x55f502b2dc90_0, 0, 32;
+    %jmp T_2.0;
+T_2.1 ;
+    %vpi_call 2 60 "$display", $time, " ********************************* " {0 0 0};
+    %vpi_call 2 61 "$display", $time, " ** Write Data to Register File ** " {0 0 0};
+    %vpi_call 2 62 "$display", $time, " ********************************* " {0 0 0};
+    %pushi/vec4 0, 0, 3;
+    %store/vec4 v0x55f502b2d690_0, 0, 3;
+    %pushi/vec4 1, 0, 3;
+    %store/vec4 v0x55f502b2d770_0, 0, 3;
+    %delay 200, 0;
+    %pushi/vec4 4660, 0, 16;
+    %store/vec4 v0x55f502b2da20_0, 0, 16;
+    %delay 200, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x55f502b2dbc0_0, 0, 1;
+    %delay 100, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x55f502b2dbc0_0, 0, 1;
+    %vpi_call 2 71 "$display", $time, " [WRITE] Reg[1]: %h", &A<v0x55f502b2d4d0, 1> {0 0 0};
+    %ix/load 4, 1, 0;
+    %flag_set/imm 4, 0;
+    %load/vec4a v0x55f502b2d4d0, 4;
+    %cmpi/e 4660, 0, 16;
+    %jmp/0xz  T_2.2, 4;
+    %vpi_call 2 73 "$display", $time, " [WRITE] Correctly Write!" {0 0 0};
+    %jmp T_2.3;
+T_2.2 ;
+    %vpi_call 2 76 "$display", $time, " [WRITE] Incorrectly Written to Reg[1].." {0 0 0};
+    %vpi_call 2 77 "$display", $time, " [WRITE] True result is Reg[1]: 0x1234" {0 0 0};
+T_2.3 ;
+    %delay 200, 0;
+    %pushi/vec4 7, 0, 3;
+    %store/vec4 v0x55f502b2d770_0, 0, 3;
+    %delay 200, 0;
+    %pushi/vec4 22136, 0, 16;
+    %store/vec4 v0x55f502b2da20_0, 0, 16;
+    %delay 200, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x55f502b2dbc0_0, 0, 1;
+    %delay 100, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x55f502b2dbc0_0, 0, 1;
+    %vpi_call 2 88 "$display", $time {0 0 0};
+    %vpi_call 2 89 "$display", $time, " [WRITE] Reg[7]: %h", &A<v0x55f502b2d4d0, 7> {0 0 0};
+    %ix/load 4, 7, 0;
+    %flag_set/imm 4, 0;
+    %load/vec4a v0x55f502b2d4d0, 4;
+    %cmpi/e 22136, 0, 16;
+    %jmp/0xz  T_2.4, 4;
+    %vpi_call 2 91 "$display", $time, " [WRITE] Correctly Write!" {0 0 0};
+    %jmp T_2.5;
+T_2.4 ;
+    %vpi_call 2 94 "$display", $time, " [WRITE] Incorrectly Written to Reg[7].." {0 0 0};
+    %vpi_call 2 95 "$display", $time, " [WRITE] True result is Reg[7]: 0x5678" {0 0 0};
+T_2.5 ;
+    %vpi_call 2 105 "$display", $time, " ********************************** " {0 0 0};
+    %vpi_call 2 106 "$display", $time, " ** Read Data from Register File ** " {0 0 0};
+    %vpi_call 2 107 "$display", $time, " ********************************** " {0 0 0};
+    %delay 200, 0;
+    %pushi/vec4 4, 0, 3;
+    %store/vec4 v0x55f502b2d690_0, 0, 3;
+    %pushi/vec4 5, 0, 3;
+    %store/vec4 v0x55f502b2d770_0, 0, 3;
+    %delay 10, 0;
+    %vpi_call 2 111 "$display", $time, " [READ] Reg[4]: %h", v0x55f502b2d8b0_0 {0 0 0};
+    %load/vec4 v0x55f502b2d8b0_0;
+    %cmpi/e 0, 0, 16;
+    %jmp/0xz  T_2.6, 4;
+    %vpi_call 2 113 "$display", $time, " [READ] Correctly Read!" {0 0 0};
+    %jmp T_2.7;
+T_2.6 ;
+    %vpi_call 2 116 "$display", $time, "[READ] Incorrectly Read from Reg[4].." {0 0 0};
+    %vpi_call 2 117 "$display", $time, "[READ] True result is Reg[4]: 0x0000" {0 0 0};
+T_2.7 ;
+    %vpi_call 2 119 "$display", $time {0 0 0};
+    %vpi_call 2 120 "$display", $time, " [READ] Reg[5]: %h", v0x55f502b2d980_0 {0 0 0};
+    %load/vec4 v0x55f502b2d980_0;
+    %cmpi/e 0, 0, 16;
+    %jmp/0xz  T_2.8, 4;
+    %vpi_call 2 122 "$display", $time, " [READ] Correctly Read!" {0 0 0};
+    %jmp T_2.9;
+T_2.8 ;
+    %vpi_call 2 125 "$display", $time, " [READ] Incorrectly Read from Reg[5].." {0 0 0};
+    %vpi_call 2 126 "$display", $time, " [READ] True result is Reg[5]: 0x0000" {0 0 0};
+T_2.9 ;
+    %delay 200, 0;
+    %pushi/vec4 7, 0, 3;
+    %store/vec4 v0x55f502b2d690_0, 0, 3;
+    %delay 10, 0;
+    %vpi_call 2 132 "$display", $time {0 0 0};
+    %vpi_call 2 133 "$display", $time, " [READ] Reg[7]: %h", v0x55f502b2d8b0_0 {0 0 0};
+    %load/vec4 v0x55f502b2d8b0_0;
+    %cmpi/e 22136, 0, 16;
+    %jmp/0xz  T_2.10, 4;
+    %vpi_call 2 135 "$display", $time, " [READ] Correctly Read!" {0 0 0};
+    %jmp T_2.11;
+T_2.10 ;
+    %vpi_call 2 138 "$display", $time, " [READ] Incorrectly Read from Reg[7].." {0 0 0};
+    %vpi_call 2 139 "$display", $time, "[READ] True result is Reg[7]: 0x5678" {0 0 0};
+T_2.11 ;
+    %delay 200, 0;
+    %pushi/vec4 1, 0, 3;
+    %store/vec4 v0x55f502b2d770_0, 0, 3;
+    %delay 10, 0;
+    %vpi_call 2 144 "$display", $time {0 0 0};
+    %vpi_call 2 145 "$display", $time, " [READ] Reg[1]: %h", v0x55f502b2d980_0 {0 0 0};
+    %load/vec4 v0x55f502b2d980_0;
+    %cmpi/e 4660, 0, 16;
+    %jmp/0xz  T_2.12, 4;
+    %vpi_call 2 147 "$display", $time, " [READ] Correctly Read!" {0 0 0};
+    %jmp T_2.13;
+T_2.12 ;
+    %vpi_call 2 150 "$display", $time, " [READ] Incorrectly Read from Reg[1].." {0 0 0};
+    %vpi_call 2 151 "$display", $time, " [READ] True result is Reg[1]: 0x1234" {0 0 0};
+T_2.13 ;
+    %vpi_call 2 155 "$display", $time, " *********************** " {0 0 0};
+    %vpi_call 2 156 "$display", $time, " ** Finish Simulation ** " {0 0 0};
+    %vpi_call 2 157 "$display", $time, " *********************** " {0 0 0};
+    %vpi_call 2 158 "$display", $time, " *** Register File ***** " {0 0 0};
+    %vpi_call 2 159 "$display", $time, " *********************** " {0 0 0};
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x55f502b2dc90_0, 0, 32;
+T_2.14 ;
+    %load/vec4 v0x55f502b2dc90_0;
+    %cmpi/s 8, 0, 32;
+    %jmp/0xz T_2.15, 5;
+    %vpi_call 2 161 "$display", $time, " Reg[%d]: %h (%b)", v0x55f502b2dc90_0, &A<v0x55f502b2d4d0, v0x55f502b2dc90_0 >, &A<v0x55f502b2d4d0, v0x55f502b2dc90_0 > {0 0 0};
+    %load/vec4 v0x55f502b2dc90_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0x55f502b2dc90_0, 0, 32;
+    %jmp T_2.14;
+T_2.15 ;
+    %delay 200, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x55f502b2daf0_0, 0, 1;
+    %delay 200, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x55f502b2daf0_0, 0, 1;
+    %delay 400, 0;
+    %vpi_call 2 169 "$finish" {0 0 0};
+    %end;
+    .thread T_2;
+    .scope S_0x55f502abe0f0;
+T_3 ;
+    %vpi_call 2 175 "$dumpfile", "Register_file.vcd" {0 0 0};
+    %vpi_call 2 176 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x55f502abe0f0 {0 0 0};
+    %end;
+    .thread T_3;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "Register_file_tb.v";
+    "Register_file.v";
