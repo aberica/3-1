@@ -25,11 +25,13 @@ always @(*) begin
     `OP_XOR:  result = in_a ^  in_b;
     `OP_OR:   result = in_a |  in_b;
     `OP_AND:  result = in_a &  in_b;
-
     //////////////////////////////////////////////////////////////////////////
     // TODO : Add other operations
     // - The example below is given as a hint
-    // - `OP_SRA: result = $signed(in_a) >>> in_b[4:0];
+    // - `OP_SRA: result = $signed(in_a) >>> in_b[4:0];    
+    `OP_SLL: result = $signed(in_a) << in_b[4:0];
+    `OP_SRL: result = $signed(in_a) >> in_b[4:0];
+    `OP_SRA: result = $signed(in_a) >>> in_b[4:0];
     //////////////////////////////////////////////////////////////////////////
     default:  result = 32'h0000_0000;
   endcase
@@ -40,6 +42,11 @@ always @(*) begin
   case (alu_func)
     //////////////////////////////////////////////////////////////////////////
     // TODO : Generate check signal
+    // 추가적으로 무언가를 더 해주어야 하지 않나 의문...
+    // 근데 여기서는 opcode가 branch 인지 R인지 모르긴 함.
+    `OP_SUB: check = (in_a == in_b);
+    `OP_SLT: check = ($signed(in_a) < $signed(in_b));
+    `OP_SLTU: check = ($unsigned(in_a) < $unsigned(in_b));
     //////////////////////////////////////////////////////////////////////////
     default:  check = 1'b0;
   endcase
