@@ -95,8 +95,8 @@ always @(*) begin
             7'h20: alu_func = `OP_SRA;
           endcase
         end
-        3'bh_2: alu_func = `OP_SLT;
-        3'bh_3: alu_func = `OP_SLTU;
+        3'h2: alu_func = `OP_SLT;
+        3'h3: alu_func = `OP_SLTU;
         default:  alu_func = `OP_EEE;  // shoud not fall here 
       endcase
       ///////////////////////////////////////////////////////////////////////

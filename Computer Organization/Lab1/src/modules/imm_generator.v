@@ -18,7 +18,7 @@ always @(*) begin
     7'b0010011: // I-type
     case(instruction[14:12])
       3'h3: sextimm = instruction[31:20]; // sltiu
-      default: sextimm = $signed(instruction[31:20]}; 
+      default: sextimm = $signed(instruction[31:20]); 
     endcase
     7'b0000011: sextimm = $signed(instruction[31:20]); //Load
     7'b0100011: sextimm = $signed({instruction[31:25], instruction[11:7]}); //Store
