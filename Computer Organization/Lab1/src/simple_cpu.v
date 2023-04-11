@@ -142,7 +142,6 @@ ALU_control m_ALU_control(
 wire [31:0] alu_in2;
 ///////////////////////////////////////////////////////////////////////////////
 // TODO : Need a fix
-// assign alu_in2 = rs2_out;
 mux_2x1 mux_alu_src(
   .select(alu_src),
   .in1(rs2_out),
@@ -241,7 +240,7 @@ data_memory m_data_memory(
 wire [DATA_WIDTH-1:0] wire_data_candi;
 mux_2x1 m_WB_mux1(
   .select(mem_to_reg),
-  .in1(rs1_out),
+  .in1(alu_out),
   .in2(read_data),
 
   .out(wire_data_candi)
