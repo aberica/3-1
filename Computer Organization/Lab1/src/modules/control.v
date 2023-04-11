@@ -25,12 +25,12 @@ always @(*) begin
     
     //////////////////////////////////////////////////////////////////////////
     // TODO : Implement signals for other instruction types
-    7'b0010011: constrols = 10'b00_000_11_011; // imm
-    7'b0000011: constrols = 10'b00_011_00_011; // load
-    7'b0100011: constrols = 10'b00_000_00_110; // S-types
-    7'b1100011: constrols = 10'b00_100_01_001; // B-types
-    7'b1101111: constrols = 10'b10_000_00_001; // JAL
-    7'b1100111: constrols = 10'b01_000_00_001; // JALR
+    7'b0010011: controls = 10'b00_000_11_011; // I-types
+    7'b0000011: controls = 10'b00_011_00_011; // load
+    7'b0100011: controls = 10'b00_000_00_110; // S-types
+    7'b1100011: controls = 10'b00_100_01_001; // B-types
+    7'b1101111: controls = 10'b10_000_00_001; // JAL
+    7'b1100111: controls = 10'b11_000_00_001; // JALR
     //////////////////////////////////////////////////////////////////////////
 
     default:    controls = 10'b00_000_00_000;

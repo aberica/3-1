@@ -1,4 +1,3 @@
-
 module mux_4x1
 #(parameter DATA_WIDTH = 32)(
   input [1:0] select,
