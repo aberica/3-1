@@ -1,0 +1,22 @@
+1.
+<Xming키고, Xming 초기 세팅 - PowerShell>
+Set-NetFirewallRule -DisplayName " Xming X Server" -Enabled True -Profile Any
+or
+New-NetFirewallRule -DisplayName " Xming X Server" -Enabled True -Profile Any
+
+export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+
+<Verilog 파일 변환>
+iverilog -o Register_file Register_file_tb.v Register_file.v
+iverilog -o my_testbench *.v
+    : 같은 디렉토리 내 모든 .v 모듈 같이 실행
+
+
+<Verilog 파일 실행>
+vvp Register_file
+or
+./Register_file
+
+<wave 창 열기>
+gtkwave Register_file.vcd
+

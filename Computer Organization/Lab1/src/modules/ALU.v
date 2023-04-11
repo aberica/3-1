@@ -32,6 +32,10 @@ always @(*) begin
     `OP_SLL: result = in_a << in_b[4:0];
     `OP_SRL: result = in_a >> in_b[4:0];
     `OP_SRA: result = $signed(in_a) >>> in_b[4:0];
+    `OP_SLT: result = ($signed(rs1) < $signed(rs2)) ? 1:0;
+    `OP_SLTU: result = (rs1 < rs2) ? 1:0;
+    // 크기가 다를 때나 signed가 의미가 있지 여기서는 흠... 의미가 있는건가...
+    // 어차피 [31-0]으로 들어오는데... 만약 차이가 없다면 SLT와 SLTU도 똑같은건데...
     //////////////////////////////////////////////////////////////////////////
     default:  result = 32'h0000_0000;
   endcase
@@ -42,11 +46,12 @@ always @(*) begin
   case (alu_func)
     //////////////////////////////////////////////////////////////////////////
     // TODO : Generate check signal
-    // 추가적으로 무언가를 더 해주어야 하지 않나 의문...
-    // 근데 여기서는 opcode가 branch 인지 R인지 모르긴 함.
-    `OP_SUB: check = (in_a == in_b);
-    `OP_SLT: check = (in_a < in_b));
-    `OP_SLTU: check = ($unsigned(in_a) < $unsigned(in_b));
+    `OP_SUB: check = (result == 0); // beq
+    `OP_XOR: check = (result != 0); // bne
+    `OP_SLT: check = result;        // blt
+    `OP_BGE: check = ($signed(rs1) >= $signed(rs2)) ? 1:0;  // bge
+    `OP_SLTU: check = result;       // blut
+    `OP_BGEU: check = (rs1 >= rs2) ? 1:0;  // bgeu
     //////////////////////////////////////////////////////////////////////////
     default:  check = 1'b0;
   endcase

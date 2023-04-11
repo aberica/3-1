@@ -50,7 +50,15 @@ always @(*) begin
     2'b01: begin                // B-types
       ///////////////////////////////////////////////////////////////////////
       // TODO : select operation for branches
-      alu_func = `OP_SUB;
+      case (funct3)
+        3'h0: alu_func = `OP_SUB; // beq
+        3'h1: alu_func = `OP_XOR; // bne
+        3'h4: alu_func = `OP_SLT; // blt
+        3'h5: alu_func = `OP_BGE; // bge
+        3'h6: alu_func = `OP_SLTU;// bltu
+        3'h7: alu_func = `OP_BGEU;// bgeu
+        default:  alu_func = `OP_EEE;  // shoud not fall here 
+      endcase
       ///////////////////////////////////////////////////////////////////////
     end
     2'b10: begin                // R-types
@@ -71,16 +79,24 @@ always @(*) begin
     2'b11: begin                // I-types
       ///////////////////////////////////////////////////////////////////////
       // TODO : select operation for I-types with immediate
-      case (funct)
-        4'bX_000: alu_func = `OP_ADD;
-        4'bX_100: alu_func = `OP_XOR;
-        4'bX_110: alu_func = `OP_OR;
-        4'bX_111: alu_func = `OP_AND;
-        4'bX_001: alu_func = `OP_SLL;
-        4'bX_101: alu_func = `OP_SRL;
-        4'bX_101: alu_func = `OP_SRA;
-        4'bX_010: alu_func = `OP_SLT;
-        4'bX_011: alu_func = `OP_SLTU;
+      case (funct3)
+        3'h0: alu_func = `OP_ADD;
+        3'h4: alu_func = `OP_XOR;
+        3'h6: alu_func = `OP_OR;
+        3'h7: alu_func = `OP_AND;
+        3'h1: begin  
+          case (funct7)
+            7'h00: alu_func = `OP_SLL;
+          endcase
+        end
+        3'h5: begin
+          case (funct7)
+            7'h00: alu_func = `OP_SRL;
+            7'h20: alu_func = `OP_SRA;
+          endcase
+        end
+        3'bh_2: alu_func = `OP_SLT;
+        3'bh_3: alu_func = `OP_SLTU;
         default:  alu_func = `OP_EEE;  // shoud not fall here 
       endcase
       ///////////////////////////////////////////////////////////////////////

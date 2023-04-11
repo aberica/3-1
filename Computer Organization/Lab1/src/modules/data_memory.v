@@ -29,9 +29,17 @@ module data_memory #(
       // TODO : Perform writes (select certain bits from write_data)
       // according to maskmode
       case (maskmode) 
-        2'b00: mem_array[address[MEM_ADDR_SIZE-1:0]][7:0] = write_data[7:0];
-        2'b01: mem_array[address[MEM_ADDR_SIZE-1:0]][15:0] = write_data[15:0];
-        2'b10: mem_array[address[MEM_ADDR_SIZE-1:0]][31:0] = write_data[31:0];
+        2'd0: mem_array[address][DATA_WIDTH-1:0] = write_data[7:0]; // byte
+        2'd1: begin                                                 // half-word
+          mem_array[address+1][DATA_WIDTH-1:0] = write_data[15:8];
+          mem_array[address][DATA_WIDTH-1:0] = write_data[7:0];
+        end
+        2'd2: begin                                                 // word
+          mem_array[address+3][DATA_WIDTH-1:0] = write_data[31:24];
+          mem_array[address+2][DATA_WIDTH-1:0] = write_data[23:16];
+          mem_array[address+1][DATA_WIDTH-1:0] = write_data[15:8];
+          mem_array[address][DATA_WIDTH-1:0] = write_data[7:0];
+        end
       endcase
       ////////////////////////////////////////////////////////////////////////
     end
@@ -42,13 +50,15 @@ module data_memory #(
     if (mem_read == 1'b1) begin
       ////////////////////////////////////////////////////////////////////////
       // TODO : Perform reads (select bits according to sext & maskmode)
-      case (sext)
-        1'b0: read_data = $signed(mem_array[address[MEM_ADDR_SIZE-1:0]);
-        1'b1: read_data = $unsigned(mem_array[address[MEM_ADDR_SIZE-1:0]);
+      case ({sext, maskmode})
+        3'b0_00: read_data = $signed(mem_array[address]);
+        3'b0_01: read_data = $signed({mem_array[address+1], mem_array[address]});
+        3'b0_10: read_data = $signed({mem_array[address+3], mem_array[address+2], mem_array[address+1], mem_array[address]});
+
+        3'b1_00: read_data = mem_array[address];
+        3'b1_01: read_data = {mem_array[address+1], mem_array[address]};
+        3'b1_10: read_data = {mem_array[address+3], mem_array[address+2], mem_array[address+1], mem_array[address]};
       endcase
-      // 되면 왜 되는지, 안 되면 왜 안되는지 체크
-      // 그리고 address_internal 안썼음. jump나 그런데에 쓰는 것 같긴 한데
-      // write 와 read 할 때 sign 처리를 어떻게 해야하는지 모르겠음
       ////////////////////////////////////////////////////////////////////////
     end else begin
       read_data = 32'h0000_0000;

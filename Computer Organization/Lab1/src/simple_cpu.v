@@ -140,7 +140,6 @@ ALU_control m_ALU_control(
 );
 
 wire [31:0] alu_in2;
-
 ///////////////////////////////////////////////////////////////////////////////
 // TODO : Need a fix
 // assign alu_in2 = rs2_out;
@@ -187,16 +186,30 @@ branch_control m_branch_control(
 ///////////////////////////////////////////////////////////////////////////////
 // TODO : Currently, NEXT_PC is always PC_PLUS_4. Using is and muxes & 
 // control signals, compute & assign the correct NEXT_PC.
-mux_4x1 assign_PC(
-  .select({jump+branch}),
+wire [DATA_WIDTH-1:0] PC_PLUS_IMM;
+adder m_next_pc_adder2(
+  .in_a(PC),
+  .in_b(sextimm),
+
+  .result(PC_PLUS_IMM)
+);
+
+wire [DATA_WIDTH-1:0] NEXT_PC_candi;
+mux_2x1 m_next_pc_mux1(
+  .select(jump[1] | taken),
   .in1(PC_PLUS_4),
-  .in2(PC + sextimm << 1),
-  .in3(PC + sextimm << 1),
-  .in4(PC + sextimm << 1),
+  .in2(PC_PLUS_IMM),
+
+  .out(NEXT_PC_candi)
+);
+
+mux_2x1 m_next_pc_mux2(
+  .select(jump[0]),
+  .in1(NEXT_PC_candi),
+  .in2(rs1_out),
 
   .out(NEXT_PC)
 );
-// 누가봐도 틀림. 어떻게 고쳐야 하냐
 //////////////////////////////////////////////////////////////////////////////
 
 
@@ -210,8 +223,8 @@ data_memory m_data_memory(
   .mem_read(mem_read),
   .maskmode(2'b00),
   .sext(1'b0),
-  .address(32'b0),
-  .write_data(32'b0),
+  .address(alu_out),
+  .write_data(rs2_out),
 
   .read_data(read_data)
 );
@@ -225,7 +238,21 @@ data_memory m_data_memory(
 ///////////////////////////////////////////////////////////////////////////////
 // TODO : Need a fix
 //////////////////////////////////////////////////////////////////////////////
-assign write_data = alu_out;
+wire [DATA_WIDTH-1:0] wire_data_candi;
+mux_2x1 m_WB_mux1(
+  .select(mem_to_reg),
+  .in1(rs1_out),
+  .in2(read_data),
 
+  .out(wire_data_candi)
+);
+
+mux_2x1 m_WB_mux2(
+  .select(jump[1]),
+  .in1(wire_data_candi),
+  .in2(PC_PLUS_4),
+
+  .out(wire_data)
+);
 //////////////////////////////////////////////////////////////////////////////
 endmodule
