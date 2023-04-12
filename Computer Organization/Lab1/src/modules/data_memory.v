@@ -1,5 +1,3 @@
-// data_memory.v
-
 module data_memory #(
   parameter DATA_WIDTH = 32, MEM_ADDR_SIZE = 8
 )(
@@ -26,21 +24,12 @@ module data_memory #(
   always @(negedge clk) begin 
     if (mem_write == 1'b1) begin
       ////////////////////////////////////////////////////////////////////////
-      // TODO : Perform writes (select certain bits from write_data)
+      // TODO : Perform writes (select certain bits from write_data
       // according to maskmode
-      case (maskmode) 
-        2'h0: mem_array[address][DATA_WIDTH-1:0] = write_data[7:0]; // byte
-        2'h1: begin                                                 // half-word
-          mem_array[address+1][DATA_WIDTH-1:0] = write_data[15:8];
-          mem_array[address][DATA_WIDTH-1:0] = write_data[7:0];
-        end
-        2'h2: begin                                                 // word
-          mem_array[address+3][DATA_WIDTH-1:0] = write_data[31:24];
-          mem_array[address+2][DATA_WIDTH-1:0] = write_data[23:16];
-          mem_array[address+1][DATA_WIDTH-1:0] = write_data[15:8];
-          mem_array[address][DATA_WIDTH-1:0] = write_data[7:0];
-        end
-        default: read_data = 32'h0000_0000;
+      case (maskmode)
+        2'h0: mem_array[address_internal][7:0] = write_data[7:0];    // byte
+        2'h1: mem_array[address_internal][15:0] = write_data[15:0];  // half-word
+        2'h2: mem_array[address_internal][31:0] = write_data[31:0];  // word
       endcase
       ////////////////////////////////////////////////////////////////////////
     end
@@ -52,12 +41,13 @@ module data_memory #(
       ////////////////////////////////////////////////////////////////////////
       // TODO : Perform reads (select bits according to sext & maskmode)
       case ({sext, maskmode})
-        3'b0_00: read_data = $signed(mem_array[address]);
-        3'b0_01: read_data = $signed({mem_array[address+1], mem_array[address]});
-        3'b0_10: read_data = $signed({mem_array[address+3], mem_array[address+2], mem_array[address+1], mem_array[address]});
-        3'b1_00: read_data = mem_array[address];
-        3'b1_01: read_data = {mem_array[address+1], mem_array[address]};
-        default: read_data = 32'h0000_0000;
+        3'b0_00: read_data = $signed(mem_array[address_internal][7:0]);
+        3'b0_01: read_data = $signed(mem_array[address_internal][15:0]);
+        3'b0_10: read_data = $signed(mem_array[address_internal][31:0]);
+
+        3'b1_00: read_data = mem_array[address_internal][7:0];
+        3'b1_01: read_data = mem_array[address_internal][15:0];
+        3'b1_10: read_data = mem_array[address_internal][31:0];
       endcase
       ////////////////////////////////////////////////////////////////////////
     end else begin
