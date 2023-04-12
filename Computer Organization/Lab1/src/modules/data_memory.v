@@ -25,7 +25,7 @@ module data_memory #(
     if (mem_write == 1'b1) begin
       ////////////////////////////////////////////////////////////////////////
       // TODO : Perform writes (select certain bits from write_data
-      // according to maskmode
+      // according to maskmode 
       case (maskmode)
         2'h0: mem_array[address_internal][7:0] = write_data[7:0];    // byte
         2'h1: mem_array[address_internal][15:0] = write_data[15:0];  // half-word
