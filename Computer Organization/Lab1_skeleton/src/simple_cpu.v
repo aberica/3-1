@@ -140,6 +140,7 @@ ALU_control m_ALU_control(
 );
 
 wire [31:0] alu_in2;
+
 ///////////////////////////////////////////////////////////////////////////////
 // TODO : Need a fix
 mux_2x1 mux_alu_src(
@@ -183,30 +184,29 @@ branch_control m_branch_control(
 );
 
 ///////////////////////////////////////////////////////////////////////////////
-// TODO : Currently, NEXT_PC is always PC_PLUS_4. Using is and muxes & 
+// TODO : Currently, NEXT_PC is always PC_PLUS_4. Using adders and muxes & 
 // control signals, compute & assign the correct NEXT_PC.
-wire [DATA_WIDTH-1:0] adder2_in_a;
-mux_2x1 m_next_pc_mux1(
-  .select(jump[0]),
-  .in1(PC),
-  .in2(rs1_out),
-
-  .out(adder2_in_a)
-);
-
-wire [DATA_WIDTH-1:0] adder2_result;
+wire [DATA_WIDTH-1:0] PC_PLUS_IMM;
 adder m_next_pc_adder2(
-  .in_a(adder2_in_a),
+  .in_a(PC),
   .in_b(sextimm),
 
-  .result(adder2_result)
+  .result(PC_PLUS_IMM)
 );
 
 wire [DATA_WIDTH-1:0] NEXT_PC_candi;
-mux_2x1 m_next_pc_mux2(
+mux_2x1 m_next_pc_mux1(
   .select(jump[1] | taken),
   .in1(PC_PLUS_4),
-  .in2(adder2_result),
+  .in2(PC_PLUS_IMM),
+
+  .out(NEXT_PC_candi)
+);
+
+mux_2x1 m_next_pc_mux2(
+  .select(jump[0]),
+  .in1(NEXT_PC_candi),
+  .in2(rs1_out),
 
   .out(NEXT_PC)
 );
@@ -221,10 +221,10 @@ data_memory m_data_memory(
   .clk(clk),
   .mem_write(mem_write),
   .mem_read(mem_read),
-  .maskmode(funct3[1:0]),
-  .sext(funct3[2]),
-  .address(alu_out),
-  .write_data(rs2_out),
+  .maskmode(2'b00),
+  .sext(1'b0),
+  .address(32'b0),
+  .write_data(32'b0),
 
   .read_data(read_data)
 );
@@ -238,6 +238,7 @@ data_memory m_data_memory(
 ///////////////////////////////////////////////////////////////////////////////
 // TODO : Need a fix
 //////////////////////////////////////////////////////////////////////////////
+// assign write_data = alu_out;
 wire [DATA_WIDTH-1:0] write_data_candi;
 mux_2x1 m_WB_mux1(
   .select(mem_to_reg),
