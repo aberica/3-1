@@ -1,0 +1,6 @@
+<C++ 실행파일 만들기>
+g++ -std=gnu++17 -O2 main.cpp -o main
+(-O2는 최적화를 의미, -o는 만드는 파일의 타입, -o가 out파일로 실행파일임)
+<입력에 파일 넣기>
+test.in
+./input/test1.in

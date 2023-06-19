@@ -1,0 +1,86 @@
+<SINGLE-LEVEL>
+------------------------------
+Performance Stats
+------------------------------
+CPI:  1.28309
+number of cycles: 1000185
+number of insts: 779515
+number of memory insts: 220485
+------------------------------
+L2_CACHE Hit Rate: 96.9126 % 
+------------------------------
+number of accesses: 1000000
+number of hits: 969126
+number of misses: 30874
+number of writes: 80669
+number of writebacks: 2880
+number of back invalidations: 0
+number of writebacks due to back invalidations: 0
+
+<UNIFIED MULTI-LEVEL>
+------------------------------
+Performance Stats
+------------------------------
+CPI:  1.28306
+number of cycles: 1000168
+number of insts: 779515
+number of memory insts: 220485
+------------------------------
+L1_CACHE Hit Rate: 90.5004 % 
+------------------------------
+number of accesses: 1000000
+number of hits: 905004
+number of misses: 94996
+number of writes: 80669
+number of writebacks: 16135
+number of back invalidations: 28
+number of writebacks due to back invalidations: 18
+------------------------------
+L2_CACHE Hit Rate: 67.5418 % 
+------------------------------
+number of accesses: 94996
+number of hits: 64162
+number of misses: 30834
+number of writes: 16134
+number of writebacks: 2931
+number of back invalidations: 0
+number of writebacks due to back invalidations: 0
+
+<SEPERATE MULTI-LEVEL>
+------------------------------
+Performance Stats
+------------------------------
+CPI:  1.28306
+number of cycles: 1000168
+number of insts: 779515
+number of memory insts: 220485
+------------------------------
+L1I_CACHE Hit Rate: 93.3959 % 
+------------------------------
+number of accesses: 779515
+number of hits: 728035
+number of misses: 51480
+number of writes: 0
+number of writebacks: 0
+number of back invalidations: 609
+number of writebacks due to back invalidations: 0
+------------------------------
+L1D_CACHE Hit Rate: 88.2826 % 
+------------------------------
+number of accesses: 220485
+number of hits: 194650
+number of misses: 25835
+number of writes: 80669
+number of writebacks: 8089
+number of back invalidations: 1948
+number of writebacks due to back invalidations: 1071
+------------------------------
+L2_CACHE Hit Rate: 59.2304 % 
+------------------------------
+number of accesses: 77315
+number of hits: 45794
+number of misses: 31521
+number of writes: 8083
+number of writebacks: 2936
+number of back invalidations: 0
+number of writebacks due to back invalidations: 0

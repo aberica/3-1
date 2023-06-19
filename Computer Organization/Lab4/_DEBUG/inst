@@ -1,0 +1,7 @@
+Part1
+./run_base ../traces/sample.trace 16384 2 64
+
+Part2
+./memory_sim ./traces/sample.trace ./configs/memory.cfg
+
+

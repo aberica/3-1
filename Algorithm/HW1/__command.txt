@@ -1,0 +1,16 @@
+g++ -std=gnu++17 -O2 main.cc -o main
+g++ -std=gnu++17 -O2 checker.cc -o checker
+g++ -std=gnu++17 -O2 _main.cc -o _main
+g++ -std=gnu++17 -O2 _checker.cc -o _checker
+g++ -std=gnu++17 -O2 multiple.cc -o multiple
+g++ -std=gnu++17 -O2 gennum.cc -o gennum
+g++ -std=gnu++17 -O2 _autochecker.cc -o _autochecker
+g++ -std=gnu++17 -O2 _data.cc -o _data
+
+./main 1 ./input/1.in ./output/1.out
+./main 1 ./input/2.in ./output/2.out
+
+./checker ./input/1.in ./output/1.out
+./checker ./input/2.in ./output/2.out
+
+./_checker ./input/2.in ./output/2.out

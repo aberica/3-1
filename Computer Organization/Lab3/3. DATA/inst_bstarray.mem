@@ -1,0 +1,219 @@
+0       ADDI    x1      x0      0
+4       ADDI    x2      x0      0
+8       ADDI    x3      x0      0
+12      ADDI    x4      x0      0
+16      ADDI    x5      x0      0
+20      ADDI    x6      x0      0
+24      ADDI    x7      x0      0
+28      ADDI    x8      x0      0
+32      ADDI    x9      x0      0
+36      ADDI    x10     x0      0
+40      ADDI    x11     x0      0
+44      ADDI    x12     x0      0
+48      ADDI    x13     x0      0
+52      ADDI    x14     x0      0
+56      ADDI    x15     x0      0
+60      ADDI    x16     x0      0
+64      ADDI    x17     x0      0
+68      ADDI    x18     x0      0
+72      ADDI    x19     x0      0
+76      ADDI    x20     x0      0
+80      ADDI    x21     x0      0
+84      ADDI    x22     x0      0
+88      ADDI    x23     x0      0
+92      ADDI    x24     x0      0
+96      ADDI    x25     x0      0
+100     ADDI    x26     x0      0
+104     ADDI    x27     x0      0
+108     ADDI    x28     x0      0
+112     ADDI    x29     x0      0
+116     ADDI    x30     x0      0
+120     ADDI    x31     x0      0
+124     AUIPC   x2      10
+128     ADDI    x2      x2      -2032
+132     JAL     x1      620
+136     JAL     x0      712
+140     ADDI    x15     x0      99
+144     ADDI    x17     x0      -1
+148     ADDI    x16     x0      99
+152     BLT     x15     x11     60
+156     SLLI    x15     x11     2
+160     ADD     x15     x10     x15
+164     LW      x14     0(x15)
+168     SLLI    x13     x11     1
+172     BEQ     x14     x17     20
+176     BGE     x12     x14     20
+180     ADDI    x11     x13     1
+184     BGE     x16     x11     -28
+188     JALR    x0      x1      0
+192     SW      x12     0(x15)
+196     ADDI    x11     x11     1
+200     SLLI    x11     x11     1
+204     BGE     x16     x11     -48
+208     JAL     x0      -20
+212     JALR    x0      x1      0
+216     JALR    x0      x1      0
+220     OR      x15     x10     x11
+224     OR      x15     x15     x12
+228     ANDI    x15     x15     3
+232     ADD     x13     x10     x12
+236     BEQ     x15     x0      40
+240     ADD     x12     x11     x12
+244     ADDI    x15     x10     0
+248     BGEU    x10     x13     60
+252     LBU     x14     0(x11)
+256     ADDI    x11     x11     1
+260     ADDI    x15     x15     1
+264     SB      x14     -1(x15)
+268     BNE     x11     x12     -16
+272     JALR    x0      x1      0
+276     BGEU    x10     x13     -4
+280     ADDI    x15     x10     0
+284     LW      x14     0(x11)
+288     ADDI    x15     x15     4
+292     ADDI    x11     x11     4
+296     SW      x14     -4(x15)
+300     BLTU    x15     x13     -16
+304     JALR    x0      x1      0
+308     JALR    x0      x1      0
+312     ADDI    x2      x2      -16
+316     OR      x15     x10     x12
+320     SW      x8      8(x2)
+324     SW      x1      12(x2)
+328     ANDI    x15     x15     3
+332     ADDI    x8      x10     0
+336     ADD     x14     x10     x12
+340     BEQ     x15     x0      36
+344     BGEU    x10     x14     12
+348     ANDI    x11     x11     255
+352     JAL     x1      -40
+356     LW      x1      12(x2)
+360     ADDI    x10     x8      0
+364     LW      x8      8(x2)
+368     ADDI    x2      x2      16
+372     JALR    x0      x1      0
+376     ANDI    x11     x11     255
+380     SLLI    x13     x11     8
+384     ADD     x13     x13     x11
+388     SLLI    x15     x13     16  
+392     ADD     x13     x13     x15
+396     BGEU    x10     x14     -40
+400     ADDI    x15     x10     0
+404     ADDI    x15     x15     4
+408     SW      x13     -4(x15)
+412     BLTU    x15     x14     -8
+416     LW      x1      12(x2)
+420     ADDI    x10     x8      0
+424     LW      x8      8(x2)
+428     ADDI    x2      x2      16
+432     JALR    x0      x1      0
+436     LBU     x15     0(x10)
+440     BEQ     x15     x0      28
+444     ADDI    x15     x10     0
+448     LBU     x14     1(x15)
+452     ADDI    x15     x15     1
+456     BNE     x14     x0      -8
+460     SUB     x10     x15     x10
+464     JALR    x0      x1      0
+468     ADDI    x10     x0      0
+472     JALR    x0      x1      0
+476     ADD     x13     x10     x11
+480     ADDI    x15     x10     0
+484     BNE     x11     x0      16
+488     JAL     x0      36
+492     ADDI    x15     x15     1
+496     BEQ     x13     x15     20
+500     LBU     x14     0(x15)
+504     BNE     x14     x0      -12
+508     SUB     x10     x15     x10
+512     JALR    x0      x1      0
+516     SUB     x10     x13     x10
+520     JALR    x0      x1      0
+524     ADDI    x10     x0      0
+528     JALR    x0      x1      0
+532     LBU     x15     0(x10)
+536     ADDI    x11     x11     1
+540     ADDI    x10     x10     1
+544     LBU     x14     -1(x11)
+548     BEQ     x15     x0      16
+552     BEQ     x15     x14     -20
+556     SUB     x10     x15     x14
+560     JALR    x0      x1      0
+564     ADDI    x15     x0      0
+568     JAL     x0      -12
+572     ADDI    x15     x10     0
+576     LBU     x14     0(x11)
+580     ADDI    x15     x15     1
+584     ADDI    x11     x11     1
+588     SB      x14     -1(x15)
+592     BNE     x14     x0      -16
+596     JALR    x0      x1      0
+600     LBU     x14     0(x10)
+604     ADDI    x13     x0      32
+608     ADDI    x15     x10     0
+612     BNE     x14     x13     16
+616     LBU     x14     1(x15)
+620     ADDI    x15     x15     1
+624     BEQ     x14     x13     -8
+628     ADDI    x13     x0      45
+632     BEQ     x14     x13     96
+636     ADDI    x13     x0      43
+640     BEQ     x14     x13     64
+644     LBU     x13     0(x15)
+648     ADDI    x11     x0      0
+652     BEQ     x13     x0      68
+656     ADDI    x10     x0      0
+660     ADDI    x15     x15     1
+664     SLLI    x14     x10     2
+668     ADDI    x12     x13     -48
+672     LBU     x13     0(x15)
+676     ADD     x14     x14     x10
+680     SLLI    x14     x14     1
+684     ADD     x10     x12     x14
+688     BNE     x13     x0      -28
+692     BEQ     x11     x0      32
+696     SUB     x10     x0      x10
+700     JALR    x0      x1      0
+704     LBU     x13     1(x15)
+708     ADDI    x11     x0      0
+712     ADDI    x15     x15     1
+716     BNE     x13     x0      -60
+720     ADDI    x10     x0      0
+724     JALR    x0      x1      0
+728     LBU     x13     1(x15)
+732     ADDI    x11     x0      1
+736     ADDI    x15     x15     1
+740     BNE     x13     x0      -84
+744     ADDI    x10     x0      0
+748     JAL     x0      -24
+752     ADDI    x28     x0      1132
+756     ADDI    x6      x28     0
+760     ADDI    x11     x0      1532
+764     ADDI    x17     x0      -1
+768     ADDI    x16     x0      99
+772     LW      x10     0(x6)
+776     ADDI    x15     x0      0
+780     SLLI    x14     x15     2
+784     ADD     x14     x11     x14
+788     LW      x13     0(x14)
+792     SLLI    x12     x15     1
+796     BEQ     x13     x17     32
+800     BGE     x10     x13     32
+804     ADDI    x15     x12     1
+808     BGE     x16     x15     -28
+812     ADDI    x6      x6      4
+816     BNE     x11     x6      -44
+820     LW      x10     440(x28)
+824     JALR    x0      x1      0
+828     SW      x10     0(x14)
+832     ADDI    x15     x15     1
+836     SLLI    x15     x15     1
+840     BGE     x16     x15     -60
+844     JAL     x0      -32
+848     ADDI    x0      x0      0
+852     ADDI    x0      x0      0
+856     ADDI    x0      x0      0
+860     ADDI    x0      x0      0
+864     ADDI    x0      x0      0
+868     ADDI    x0      x0      0
+872     JAL     x0      -24
