@@ -1,0 +1,26 @@
+% Get absolute values of the k-space data
+abs_kspace_val = abs(kspace_val);
+
+% Flatten it into 1D array
+flattened = abs_kspace_val(:);
+
+% Sort in descending order and get indices
+[~, sorted_indices] = sort(flattened, 'descend');
+
+% Initialize mask
+mask = zeros(size(kspace_val));
+
+% Flatten mask as well
+flattened_mask = mask(:);
+
+% Set highest M entries to 1
+flattened_mask(sorted_indices(1:M)) = 1;
+
+% Reshape mask back to original shape
+mask = reshape(flattened_mask, size(mask));
+
+disp("sum : "+ sum(mask, 'all')+", and it should be "+M);
+
+figure;
+imshow(mask,'Colormap',gray);
+assert(sum(mask,'all')==M);

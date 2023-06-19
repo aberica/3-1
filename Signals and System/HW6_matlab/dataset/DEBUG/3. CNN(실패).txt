@@ -1,0 +1,47 @@
+
+% image_Val  : [1, 160, 160]    input image
+% kspace_val : [160, 160]       input image in frequency domain
+% image_train: [10, 160, 160]   test image for training
+
+% Convert 3D arrays to 4D arrays
+% inputImages = permute(image_val, [2, 3, 4, 1]);  % This results in a [160, 160, 1, 1] arrayy
+inputImages = reshape(abs(kspace_val), [160, 160, 1, 1]);
+targetImages = permute(image_train, [2, 3, 4, 1]);  % This results in a [160, 160, 1, 10] array
+
+% Replicate the validation image to match the number of training images
+inputImages = repmat(inputImages, [1, 1, 1, size(targetImages, 4)]);  % This results in a [160, 160, 1, 10] array
+
+
+% Create a simple CNN
+layers = [
+    imageInputLayer([160 160 1])  % Change input layer size to match your images
+    convolution2dLayer(3,8,'Padding','same')
+    batchNormalizationLayer
+    reluLayer
+    convolution2dLayer(3,16,'Padding','same')
+    batchNormalizationLayer
+    reluLayer
+    convolution2dLayer(3,1,'Padding','same')
+    regressionLayer];
+
+options = trainingOptions('sgdm', ...
+    'InitialLearnRate',0.00001, ...
+    'MaxEpochs',100, ...
+    'Shuffle','every-epoch', ...
+    'ValidationData',{inputImages, targetImages}, ...  % Validate using the original images
+    'ValidationFrequency',30, ...
+    'Verbose',false, ...
+    'Plots','training-progress');
+
+
+net = trainNetwork(inputImages,targetImages,layers,options);
+mask = predict(net, inputImages);
+mask = squeeze(mask); % Remove singleton dimensions
+mask = imbinarize(mask, 'adaptive'); % Convert to binary mask
+mask = imresize(mask, [160, 160]); % Resize mask to match the desired size
+
+disp("sum : "+ sum(mask, 'all')+", and it should be "+M);
+
+figure;
+imshow(mask,'Colormap',gray);
+assert(sum(mask,'all')==M);

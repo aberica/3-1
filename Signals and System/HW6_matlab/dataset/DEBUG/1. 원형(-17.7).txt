@@ -1,0 +1,23 @@
+% Define mask
+mask = zeros(160, 160);
+
+% The center of the image will contain low-frequency components, thus we sample more from the center
+mid = 160 / 2;
+radius = sqrt(M / pi);
+
+% Construct mask that keeps low-frequency components and discards high-frequency components
+num = 0;
+for i = 1:160
+    for j = 1:160
+        if ((i - mid)^2 + (j - mid)^2 <= radius^2 + 4 && num < M)
+            mask(i, j) = 1;
+            num = num + 1;
+        end
+    end
+end
+
+disp("sum : "+ sum(mask, 'all')+", and it should be "+M);
+
+figure;
+imshow(mask,'Colormap',gray);
+assert(sum(mask,'all')==M);
